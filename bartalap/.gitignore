@@ -46,7 +46,6 @@ app.*.map.json
 /.dart_tool
 /.idea
 /.vscode/
-/android
 /ios
 /linux
 /macos
