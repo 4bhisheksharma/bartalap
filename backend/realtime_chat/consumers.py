@@ -84,3 +84,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def save_message(self, user, message):
         return Message.objects.create(user=user, content=message)
+
+
+# since i am currently working in this project i am not able to fucus on my main project ie Hisab khata
+# before implementing realtime chat feature need to learn some basic concepts of django channels and websockets so i am doing this small project
+# this message is for FYP supervisor 
+
