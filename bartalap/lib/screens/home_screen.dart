@@ -1,4 +1,5 @@
 import 'package:bartalap/screens/login_screen.dart';
+import 'package:bartalap/screens/chat_screen.dart';
 import 'package:bartalap/theme/my_app_theme.dart';
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
@@ -46,9 +47,19 @@ class _HomeScreenState extends State<HomeScreen> {
               child: CircularProgressIndicator(color: MyAppTheme.mainFontColor),
             );
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: \\${snapshot.error}'));
+            return Center(
+              child: Text(
+                'Error: ${snapshot.error}',
+                style: TextStyle(color: MyAppTheme.whiteColor),
+              ),
+            );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No users found'));
+            return Center(
+              child: Text(
+                'No users found',
+                style: TextStyle(color: MyAppTheme.whiteColor),
+              ),
+            );
           }
           final users = snapshot.data!;
           return ListView.separated(
@@ -66,12 +77,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 title: Text(
                   user.username,
-                  style: TextStyle(color: MyAppTheme.mainFontColor),
+                  style: TextStyle(color: MyAppTheme.whiteColor),
                 ),
                 subtitle: Text(
-                  'User ID: \\${user.id}',
-                  style: TextStyle(color: MyAppTheme.blackColor),
+                  'User ID: ${user.id}',
+                  style: TextStyle(color: MyAppTheme.whiteColor),
                 ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => ChatScreen(peerUser: user),
+                    ),
+                  );
+                },
               );
             },
           );

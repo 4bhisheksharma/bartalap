@@ -66,7 +66,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 style: TextStyle(color: MyAppTheme.whiteColor),
                 decoration: InputDecoration(
                   labelText: 'Username',
-                  labelStyle: TextStyle(color: MyAppTheme.mainFontColor),
+                  labelStyle: TextStyle(color: MyAppTheme.whiteColor),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: MyAppTheme.mainFontColor),
@@ -82,10 +82,10 @@ class _SignupScreenState extends State<SignupScreen> {
               SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
-                style: TextStyle(color: MyAppTheme.blackColor),
+                style: TextStyle(color: MyAppTheme.whiteColor),
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  labelStyle: TextStyle(color: MyAppTheme.mainFontColor),
+                  labelStyle: TextStyle(color: MyAppTheme.whiteColor),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: MyAppTheme.mainFontColor),
@@ -105,10 +105,10 @@ class _SignupScreenState extends State<SignupScreen> {
               SizedBox(height: 16),
               TextFormField(
                 controller: _confirmPasswordController,
-                style: TextStyle(color: MyAppTheme.blackColor),
+                style: TextStyle(color: MyAppTheme.whiteColor),
                 decoration: InputDecoration(
                   labelText: 'Confirm Password',
-                  labelStyle: TextStyle(color: MyAppTheme.mainFontColor),
+                  labelStyle: TextStyle(color: MyAppTheme.whiteColor),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: MyAppTheme.mainFontColor),

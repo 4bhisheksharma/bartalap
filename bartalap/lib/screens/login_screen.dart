@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(color: MyAppTheme.whiteColor),
                 decoration: InputDecoration(
                   labelText: 'Username',
-                  labelStyle: TextStyle(color: MyAppTheme.mainFontColor),
+                  labelStyle: TextStyle(color: MyAppTheme.whiteColor),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: MyAppTheme.mainFontColor),
@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(color: MyAppTheme.blackColor),
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  labelStyle: TextStyle(color: MyAppTheme.mainFontColor),
+                  labelStyle: TextStyle(color: MyAppTheme.whiteColor),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: MyAppTheme.mainFontColor),
