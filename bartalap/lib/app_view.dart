@@ -1,4 +1,3 @@
-import 'package:bartalap/screens/home_screen.dart';
 import 'package:bartalap/screens/signup_screen.dart';
 import 'package:bartalap/theme/my_app_theme.dart';
 import 'package:flutter/material.dart';

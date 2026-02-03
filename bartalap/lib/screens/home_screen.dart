@@ -1,3 +1,4 @@
+import 'package:bartalap/screens/login_screen.dart';
 import 'package:bartalap/theme/my_app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -18,12 +19,34 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: MyAppTheme.mainFontColor),
         ),
       ),
-      body: const Center(
-        child: Text(
-          'Welcome to BARTALAP',
-          style: TextStyle(color: MyAppTheme.mainFontColor),
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Center(
+            child: Text(
+              'Welcome to BARTALAP!',
+              style: TextStyle(
+                color: MyAppTheme.whiteColor,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              navigateToNextScreen();
+            },
+            child: const Text('Get Started'),
+          ),
+        ],
       ),
     );
+  }
+
+  void navigateToNextScreen() {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => LoginScreen()));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 import 'signup_screen.dart';
+import '../theme/my_app_theme.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -45,7 +46,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
+      appBar: AppBar(
+        title: Text('Login', style: TextStyle(color: MyAppTheme.whiteColor)),
+        backgroundColor: MyAppTheme.mainFontColor,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -58,6 +62,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: InputDecoration(
                   labelText: 'Username',
                   border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyAppTheme.mainFontColor),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -72,6 +79,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyAppTheme.mainFontColor),
+                  ),
                 ),
                 obscureText: true,
                 validator: (value) {
@@ -83,12 +93,14 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 24),
               _isLoading
-                  ? CircularProgressIndicator()
+                  ? CircularProgressIndicator(color: MyAppTheme.mainFontColor)
                   : ElevatedButton(
                       onPressed: _login,
                       child: Text('Login'),
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 50),
+                        backgroundColor: MyAppTheme.firstSuggestionBoxColor,
+                        foregroundColor: MyAppTheme.whiteColor,
                       ),
                     ),
               SizedBox(height: 16),
@@ -98,7 +110,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     context,
                   ).push(MaterialPageRoute(builder: (_) => SignupScreen()));
                 },
-                child: Text('Don\'t have an account? Sign Up'),
+                child: Text(
+                  'Don\'t have an account? Sign Up',
+                  style: TextStyle(color: MyAppTheme.mainFontColor),
+                ),
               ),
             ],
           ),

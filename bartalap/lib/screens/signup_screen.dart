@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
+import '../theme/my_app_theme.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -47,7 +48,8 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign Up', style: TextStyle(color: Colors.white)),
+        title: Text('Sign Up', style: TextStyle(color: MyAppTheme.whiteColor)),
+        backgroundColor: MyAppTheme.mainFontColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -61,6 +63,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 decoration: InputDecoration(
                   labelText: 'Username',
                   border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyAppTheme.mainFontColor),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -75,6 +80,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 decoration: InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyAppTheme.mainFontColor),
+                  ),
                 ),
                 obscureText: true,
                 validator: (value) {
@@ -93,6 +101,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 decoration: InputDecoration(
                   labelText: 'Confirm Password',
                   border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyAppTheme.mainFontColor),
+                  ),
                 ),
                 obscureText: true,
                 validator: (value) {
@@ -104,12 +115,14 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               SizedBox(height: 24),
               _isLoading
-                  ? CircularProgressIndicator()
+                  ? CircularProgressIndicator(color: MyAppTheme.mainFontColor)
                   : ElevatedButton(
                       onPressed: _signup,
                       child: Text('Sign Up'),
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 50),
+                        backgroundColor: MyAppTheme.secondSuggestionBoxColor,
+                        foregroundColor: MyAppTheme.whiteColor,
                       ),
                     ),
               SizedBox(height: 16),
@@ -117,7 +130,10 @@ class _SignupScreenState extends State<SignupScreen> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Already have an account? Login'),
+                child: Text(
+                  'Already have an account? Login',
+                  style: TextStyle(color: MyAppTheme.mainFontColor),
+                ),
               ),
             ],
           ),
