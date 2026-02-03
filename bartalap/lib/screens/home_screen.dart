@@ -25,9 +25,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout, color: MyAppTheme.whiteColor),
+            onPressed: navigateToNextScreen,
+          ),
+        ],
+        automaticallyImplyLeading: false,
         title: const Text(
-          'Home Screen',
-          style: TextStyle(color: MyAppTheme.mainFontColor),
+          'Bartalap Dashboard',
+          style: TextStyle(color: MyAppTheme.whiteColor),
         ),
         backgroundColor: MyAppTheme.mainFontColor,
       ),
