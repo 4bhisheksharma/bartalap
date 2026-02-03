@@ -101,15 +101,42 @@ class _ChatScreenState extends State<ChatScreen> {
                       horizontal: 8,
                     ),
                     padding: const EdgeInsets.all(12),
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width * 0.7,
+                    ),
                     decoration: BoxDecoration(
                       color: isMe
                           ? MyAppTheme.firstSuggestionBoxColor
                           : MyAppTheme.assistantCircleColor,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 8,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
                     ),
-                    child: Text(
-                      msg['message'],
-                      style: TextStyle(color: MyAppTheme.whiteColor),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          msg['message'],
+                          style: TextStyle(color: MyAppTheme.whiteColor),
+                        ),
+                        if (msg['timestamp'] != null) ...[
+                          SizedBox(height: 4),
+                          Text(
+                            DateTime.parse(
+                              msg['timestamp'],
+                            ).toLocal().toString().substring(11, 16),
+                            style: TextStyle(
+                              color: MyAppTheme.whiteColor.withOpacity(0.7),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ],
                     ),
                   ),
                 );
