@@ -2,24 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-class Message {
-  final int id;
-  final String username;
-  final String content;
-  final DateTime timestamp;
-
-  Message({required this.id, required this.username, required this.content, required this.timestamp});
-
-  factory Message.fromJson(Map<String, dynamic> json) {
-    return Message(
-      id: json['id'],
-      username: json['username'],
-      content: json['content'],
-      timestamp: DateTime.parse(json['timestamp']),
-    );
-  }
-}
+import '../models/models.dart';
 
 class ApiService {
   static const String baseUrl = 'http://10.0.2.2:8000'; // For Android emulator
@@ -35,7 +18,10 @@ class ApiService {
     await prefs.setString('token', token);
   }
 
-  Future<http.Response> _post(String endpoint, Map<String, dynamic> body) async {
+  Future<http.Response> _post(
+    String endpoint,
+    Map<String, dynamic> body,
+  ) async {
     final response = await http.post(
       Uri.parse('$baseUrl$endpoint'),
       headers: {'Content-Type': 'application/json'},
@@ -56,7 +42,10 @@ class ApiService {
     return response;
   }
 
-  Future<http.Response> _postAuthenticated(String endpoint, Map<String, dynamic> body) async {
+  Future<http.Response> _postAuthenticated(
+    String endpoint,
+    Map<String, dynamic> body,
+  ) async {
     final token = await _getToken();
     final response = await http.post(
       Uri.parse('$baseUrl$endpoint'),
@@ -82,7 +71,7 @@ class ApiService {
     }
   }
 
-  Future<String> login(String username, String password) async {
+  Future<AuthResponse> login(String username, String password) async {
     final response = await _post('/api/login/', {
       'username': username,
       'password': password,
@@ -90,9 +79,9 @@ class ApiService {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      final token = data['access'];
-      await _saveToken(token);
-      return token;
+      final authResponse = AuthResponse.fromJson(data);
+      await _saveToken(authResponse.access);
+      return authResponse;
     } else {
       throw Exception('Login failed: ${response.body}');
     }
@@ -126,8 +115,6 @@ class ApiService {
 
   Future<WebSocketChannel> connectWebSocket() async {
     final token = await _getToken();
-    return WebSocketChannel.connect(
-      Uri.parse('$wsUrl?token=$token'),
-    );
+    return WebSocketChannel.connect(Uri.parse('$wsUrl?token=$token'));
   }
 }

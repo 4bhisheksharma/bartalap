@@ -1,0 +1,14 @@
+class AuthResponse {
+  final String access;
+  final String refresh;
+
+  AuthResponse({required this.access, required this.refresh});
+
+  factory AuthResponse.fromJson(Map<String, dynamic> json) {
+    return AuthResponse(access: json['access'], refresh: json['refresh']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'access': access, 'refresh': refresh};
+  }
+}
