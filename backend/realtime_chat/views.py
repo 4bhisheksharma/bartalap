@@ -1,9 +1,15 @@
-from rest_framework import generics, permissions
-from .serializers import RegisterSerializer
-from .models import Message
-from rest_framework import serializers
+
+from rest_framework import generics, permissions, serializers
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, ListAPIView
+from .serializers import RegisterSerializer, UserListSerializer
+from .models import Message
+from django.contrib.auth.models import User
+
+class UserListView(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserListSerializer
+    permission_classes = (IsAuthenticated,)
 
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
