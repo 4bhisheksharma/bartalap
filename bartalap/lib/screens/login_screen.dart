@@ -59,8 +59,10 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               TextFormField(
                 controller: _usernameController,
+                style: TextStyle(color: MyAppTheme.whiteColor),
                 decoration: InputDecoration(
                   labelText: 'Username',
+                  labelStyle: TextStyle(color: MyAppTheme.mainFontColor),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: MyAppTheme.mainFontColor),
@@ -76,8 +78,10 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
+                style: TextStyle(color: MyAppTheme.blackColor),
                 decoration: InputDecoration(
                   labelText: 'Password',
+                  labelStyle: TextStyle(color: MyAppTheme.mainFontColor),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: MyAppTheme.mainFontColor),

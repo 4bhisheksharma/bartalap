@@ -1,3 +1,4 @@
+import 'package:bartalap/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 import '../theme/my_app_theme.dart';
@@ -31,7 +32,9 @@ class _SignupScreenState extends State<SignupScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Registration successful! Please login.')),
         );
-        Navigator.of(context).pop(); // Go back to login
+        if (Navigator.of(context).canPop()) {
+          Navigator.of(context).pop();
+        } else {}
       } catch (e) {
         ScaffoldMessenger.of(
           context,
@@ -60,8 +63,10 @@ class _SignupScreenState extends State<SignupScreen> {
             children: [
               TextFormField(
                 controller: _usernameController,
+                style: TextStyle(color: MyAppTheme.whiteColor),
                 decoration: InputDecoration(
                   labelText: 'Username',
+                  labelStyle: TextStyle(color: MyAppTheme.mainFontColor),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: MyAppTheme.mainFontColor),
@@ -77,8 +82,10 @@ class _SignupScreenState extends State<SignupScreen> {
               SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
+                style: TextStyle(color: MyAppTheme.blackColor),
                 decoration: InputDecoration(
                   labelText: 'Password',
+                  labelStyle: TextStyle(color: MyAppTheme.mainFontColor),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: MyAppTheme.mainFontColor),
@@ -98,8 +105,10 @@ class _SignupScreenState extends State<SignupScreen> {
               SizedBox(height: 16),
               TextFormField(
                 controller: _confirmPasswordController,
+                style: TextStyle(color: MyAppTheme.blackColor),
                 decoration: InputDecoration(
                   labelText: 'Confirm Password',
+                  labelStyle: TextStyle(color: MyAppTheme.mainFontColor),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: MyAppTheme.mainFontColor),
@@ -118,17 +127,17 @@ class _SignupScreenState extends State<SignupScreen> {
                   ? CircularProgressIndicator(color: MyAppTheme.mainFontColor)
                   : ElevatedButton(
                       onPressed: _signup,
-                      child: Text('Sign Up'),
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 50),
                         backgroundColor: MyAppTheme.secondSuggestionBoxColor,
                         foregroundColor: MyAppTheme.whiteColor,
                       ),
+                      child: Text('Sign Up'),
                     ),
               SizedBox(height: 16),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  navigateToLoginScreen();
                 },
                 child: Text(
                   'Already have an account? Login',
@@ -140,5 +149,11 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       ),
     );
+  }
+
+  void navigateToLoginScreen() {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => LoginScreen()));
   }
 }
