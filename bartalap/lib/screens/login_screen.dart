@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 import 'signup_screen.dart';
 import '../theme/my_app_theme.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -26,8 +27,9 @@ class _LoginScreenState extends State<LoginScreen> {
           _usernameController.text,
           _passwordController.text,
         );
-        // Navigate to chat screen or home
-        // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => ChatScreen()));
+        Navigator.of(
+          context,
+        ).pushReplacement(MaterialPageRoute(builder: (_) => HomeScreen()));
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text('Login successful!')));

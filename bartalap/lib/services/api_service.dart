@@ -117,4 +117,21 @@ class ApiService {
     final token = await _getToken();
     return WebSocketChannel.connect(Uri.parse('$wsUrl?token=$token'));
   }
+
+  Future<List<User>> getUsers() async {
+    final token = await _getToken();
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/users/'),
+      headers: {
+        'Content-Type': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      final List data = jsonDecode(response.body);
+      return data.map((json) => User.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load users: ${response.body}');
+    }
+  }
 }

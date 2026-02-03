@@ -1,6 +1,8 @@
 import 'package:bartalap/screens/login_screen.dart';
 import 'package:bartalap/theme/my_app_theme.dart';
 import 'package:flutter/material.dart';
+import '../services/api_service.dart';
+import '../models/user.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,6 +12,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final ApiService _apiService = ApiService();
+  late Future<List<User>> _usersFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _usersFuture = _apiService.getUsers();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,28 +29,46 @@ class _HomeScreenState extends State<HomeScreen> {
           'Home Screen',
           style: TextStyle(color: MyAppTheme.mainFontColor),
         ),
+        backgroundColor: MyAppTheme.mainFontColor,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Center(
-            child: Text(
-              'Welcome to BARTALAP!',
-              style: TextStyle(
-                color: MyAppTheme.whiteColor,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              navigateToNextScreen();
+      body: FutureBuilder<List<User>>(
+        future: _usersFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(color: MyAppTheme.mainFontColor),
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: \\${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No users found'));
+          }
+          final users = snapshot.data!;
+          return ListView.separated(
+            itemCount: users.length,
+            separatorBuilder: (_, __) => Divider(color: MyAppTheme.borderColor),
+            itemBuilder: (context, index) {
+              final user = users[index];
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: MyAppTheme.assistantCircleColor,
+                  child: Text(
+                    user.username[0].toUpperCase(),
+                    style: TextStyle(color: MyAppTheme.blackColor),
+                  ),
+                ),
+                title: Text(
+                  user.username,
+                  style: TextStyle(color: MyAppTheme.mainFontColor),
+                ),
+                subtitle: Text(
+                  'User ID: \\${user.id}',
+                  style: TextStyle(color: MyAppTheme.blackColor),
+                ),
+              );
             },
-            child: const Text('Get Started'),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
