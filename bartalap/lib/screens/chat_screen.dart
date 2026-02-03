@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../models/user.dart';
 import '../services/api_service.dart';
+import '../models/message.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import '../theme/my_app_theme.dart';
 
@@ -23,6 +24,26 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     _initWebSocket();
+    _loadMessages();
+  }
+
+  void _loadMessages() async {
+    try {
+      final messages = await _apiService.getMessages();
+      setState(() {
+        _messages = messages.reversed
+            .map(
+              (msg) => {
+                'username': msg.username,
+                'message': msg.content,
+                'timestamp': msg.timestamp.toIso8601String(),
+              },
+            )
+            .toList();
+      });
+    } catch (e) {
+      debugPrint('Error loading messages: $e');
+    }
   }
 
   void _initWebSocket() async {
